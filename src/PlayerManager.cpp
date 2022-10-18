@@ -36,8 +36,7 @@ void PlayerManager::removePlayer(std::string id) {
 
 //对除了
 void PlayerManager::broadcastMsg(std::string id, MsgBase& msg) {
-    //有严重的线程安全问题。。我现在想不到有什么办法可以快速解决
-    //涉及到Connection对象生命周期的问题，如果在运行这个函数的时候，有connection对象析构了怎么办？
+    //可能有内存安全问题
     for (auto& p : _players) {
         if (p.first != id) {
             std::unique_lock<std::mutex> lock(_mtx);
